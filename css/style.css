@@ -1,0 +1,93 @@
+.navbar{
+    margin-bottom: 0px;
+}
+
+.loginSignup {
+    background:url(../img/bg1.avif);
+    background-color: #080808;
+    background-size:cover;
+}
+
+.cart {
+    background-color: #080808c8;
+    color: aliceblue;
+    background-size:cover;
+}
+
+.landingPage {
+    background:url(../img/bga1.jpg);
+    background-size:cover;
+}
+
+#bannerImage{
+    padding-top:75px;
+    padding-bottom:50px;
+    margin-bottom: 20px;
+    text-align:center;
+    color:#080808;
+}
+
+#bannerContent{
+    position:relative;
+    padding-top:6%;
+    padding-bottom:6%;
+    margin-top:12%;
+    margin-bottom:12%;
+    background-color:rgba(255, 255, 255, 0.7);
+    max-width:660px;
+}
+
+footer{
+    background-color:#101010;
+    color:#9d9d9d;
+    font-size:14px;
+    font-weight:bold;
+    padding:10px;    
+    bottom:0;
+}
+
+html { 
+    min-height:100%;
+    position:relative;
+    /* background-color: rgb(255, 255, 255);     */
+} 
+
+.footer { 
+    position: absolute; 
+    bottom:0; 
+    right:0;
+    left:0;
+}
+
+.buyNow {
+    background-color: rgb(112, 167, 18);
+}
+.buyNow:hover {
+    background-color: rgb(91, 137, 12);
+}
+
+@media (min-width:320px){
+    #autoResize{
+        font-size:12px;
+    }
+}
+@media (min-width:481px){
+    #autoResize{
+        font-size:16px;
+    }
+}
+@media (min-width:641px){
+    #autoResize{
+        font-size:18px;
+    }
+}
+@media (min-width:961px){
+    #autoResize{
+        font-size:20px;
+    }
+}
+@media (min-width:1000px){
+    #autoResize{
+        font-size:26px;
+    }
+}
