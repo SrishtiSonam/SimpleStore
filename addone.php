@@ -2,10 +2,6 @@
 require 'connection.php';
 session_start();
 
-if(isset($_SESSION['email'])){
-    header('location: products.php');
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $lastname = $email = $password = $conform_password = $phoneno = $city = $address = $gender = $dob = "";
 
@@ -34,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['email'] = $email;
         $stmt->close();
         $con->close();
-        header("location: products.php");
         exit();
     } else {
         echo "Error: " . $stmt->error;
@@ -65,7 +60,7 @@ $con->close();
         <div class="row">
             <div class="col-xs-4 col-xs-offset-4">
                 <center>
-                    <h1><b>SIGN UP</b></h1>
+                    <h1><b>SIGN UP FOR NEW USER</b></h1>
                 <center>
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <div class="form-group">
@@ -86,14 +81,22 @@ $con->close();
                     <div class="form-group">
                         <label for="gender">Gender:</label>
                         <select class="form-control" id="gender" name="gender" required="true">
-                            <option value="other">Other</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="dob">Date of Birth:</label>
                         <input type="date" class="form-control" id="dob" name="dob" required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Gender:</label>
+                        <select class="form-control" id="type" name="type" required="true">
+                            <option value="staff">Staff</option>
+                            <option value="admin">Admin</option>
+                            <option value="owner">Owner</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" placeholder="Password (min. 6 characters)" required="true" pattern=".{6,}">

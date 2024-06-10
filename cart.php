@@ -62,7 +62,7 @@ if ($no_of_user_products == 0) {
                     <th><?php echo $row['price']; ?></th>
                     <th><?php echo $row['quantity']; ?></th>
                     <th><?php echo $row['price'] * $row['quantity']; ?></th>
-                    <th><a href='cart_remove.php?id=<?php echo $row['productid']; ?>'>Remove</a></th>
+                    <th><a href='cart_remove.php?pname=<?php echo $row['productname']; ?>'>Remove</a></th>
                 </tr>
                 <?php
                 $counter++;

@@ -16,6 +16,7 @@
                            ?>
                            <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                            <li><a href="edit.php"><span class="glyphicon glyphicon-cog"></span> Edit </a></li>
+                           <li><a href="billpayments.php"><span class="glyphicon glyphicon-cog"></span> Order History </a></li>
                            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                            <?php
                            }else{

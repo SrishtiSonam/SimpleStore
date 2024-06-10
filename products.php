@@ -3,16 +3,8 @@ session_start();
 require 'connection.php';
 require 'check_if_added.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['email'])) {
-    header('location: login.php');
-    exit();
-}
-
-// Fetch products from the database
 $sql = "SELECT * FROM product";
 $result = $con->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +22,32 @@ $result = $con->query($sql);
         body {
             background-color: rgba(220, 20, 60, 0.6);
         }
+        .img-container {
+            position: relative;
+            height: 15rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;   
+        }
+        .img-container img {
+            height: 100%;
+            object-fit: cover; 
+        }
+        .img-container .description {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .img-container:hover .description {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -46,25 +64,25 @@ $result = $con->query($sql);
         <div class="container">
             <div class="row">
                 <?php
-                // Check if products are available
                 if ($result->num_rows > 0) {
-                    // Iterate through each product
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="col-md-3 col-sm-6">';
                         echo '<div class="thumbnail">';
                         echo '<a href="cart.php">';
-                        echo '<img src="img/' . $row['image'] . '" alt="' . $row['productname'] . '" style="height: 15rem;">';
+                        echo '<div class="img-container">';
+                        echo '<img src="img/' . $row['image'] . '" alt="' . $row['productname'] . '">';
+                        echo '<div class="description">';
+                        echo '<p>' . $row['description'] . '</p>'; // Assuming 'description' is the column name in your database for product descriptions
+                        echo '</div>';
+                        echo '</div>';
                         echo '</a>';
                         echo '<center>';
                         echo '<div class="caption">';
                         echo '<h3>' . $row['productname'] . '</h3>';
                         echo '<p>Price: Rs. ' . $row['price'] . '</p>';
-                        
-                        // Check product availability
-                        if ($row['quantity'] == 0 || getCategoryAvailability($row['categoryid'], $con) == 'N') {
+                        if ($row['quantity'] == 0) {
                             echo '<p><button class="btn btn-primary btn-block buyNow" disabled>Not Available</button></p>';
                         } else {
-                            // Display add to cart form
                             if (check_if_added_to_cart($row['productid'])) {
                                 echo '<a href="#" class="btn btn-block btn-success disabled">Added to cart</a>';
                             } else {
@@ -85,6 +103,7 @@ $result = $con->query($sql);
                 } else {
                     echo "<div class='col-md-12'><p>No products found</p></div>";
                 }
+                $con->close();
                 ?>
             </div>
         </div>
@@ -92,16 +111,3 @@ $result = $con->query($sql);
     </div>
 </body>
 </html>
-
-<?php
-// Function to get category availability
-function getCategoryAvailability($categoryid, $con) {
-    // Query to fetch category availability
-    $query = "SELECT availability FROM category WHERE categoryid='$categoryid'";
-    $result = $con->query($query) or die($conn->error); // Perform query
-    $row = $result->fetch_assoc(); // Fetch result
-    return $row['availability'];
-    // Close the connection
-$con->close();
-}
-?>

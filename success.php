@@ -39,6 +39,7 @@
                                 <p> Pay either using cash at counter or scan this QR code.</p>
                                 <img src="img/qrcode.png" alt="QRCode">
                             </div>
+                            <a href="billpayments.php"> Click here to see all the bill payments. </a>
                         </div>
                     </div>
                     </center>

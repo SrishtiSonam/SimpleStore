@@ -1,10 +1,8 @@
 <?php
-// Include the database connection file
 require 'connection.php';
 session_start();
 
-// Check if user is logged in
-if(!isset($_SESSION['email'])) {
+if (!isset($_SESSION['email'])) {
     header('location: login.php');
     exit();
 }
@@ -14,21 +12,35 @@ $user_info_query = "SELECT * FROM user WHERE email = '$user_id'";
 $user_info_result = mysqli_query($con, $user_info_query);
 $user_info = mysqli_fetch_assoc($user_info_result);
 
-if(isset($_POST['update'])) {
+if (isset($_POST['update'])) {
     $username = $_POST['username'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $dob = $_POST['dob'];
     $phoneno = $_POST['phoneno'];
+    $password = $_POST['password'];
+    $newpassword = $_POST['newpassword'];
+    $confirmpassword = $_POST['confirmpassword'];
+    $password_query = "SELECT password FROM user WHERE email = '$user_id'";
+    $password_result = mysqli_query($con, $password_query);
+    $password_row = mysqli_fetch_assoc($password_result);
 
-    // Update user information in the database
-    $update_query = "UPDATE user SET username='$username', firstname = '$firstname', lastname = '$lastname', dob = '$dob', phoneno = '$phoneno' WHERE email = '$user_id'";
-    $update_result = mysqli_query($con, $update_query);
-    if($update_result) {
-        header('location: index.php');
-        exit();
+    if (password_verify($password, $password_row['password'])) {
+        if ($newpassword === $confirmpassword) {
+            $hashed_newpassword = password_hash($newpassword, PASSWORD_BCRYPT);
+            $update_query = "UPDATE user SET username='$username', firstname='$firstname', lastname='$lastname', dob='$dob', phoneno='$phoneno', password='$hashed_newpassword' WHERE email='$user_id'";
+            $update_result = mysqli_query($con, $update_query);
+            if ($update_result) {
+                header('location: index.php');
+                exit();
+            } else {
+                echo "Error updating user information.";
+            }
+        } else {
+            echo "New password and confirm password do not match.";
+        }
     } else {
-        echo "Error updating user information.";
+        echo "Current password is incorrect.";
     }
 }
 ?>
@@ -71,6 +83,18 @@ if(isset($_POST['update'])) {
                     <div class="form-group">
                         <label for="phoneno">Phone Number:</label>
                         <input type="text" class="form-control" id="phoneno" name="phoneno" value="<?php echo $user_info['phoneno']; ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Current Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newpassword">New Password:</label>
+                        <input type="password" class="form-control" id="newpassword" name="newpassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword">Confirm New Password:</label>
+                        <input type="password" class="form-control" id="confirmpassword" name="confirmpassword">
                     </div>
                     <button type="submit" class="btn btn-primary" name="update">Update</button>
                 </form>

@@ -10,16 +10,12 @@
         <title>MarketMart</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- latest compiled and minified CSS -->
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
-        <!-- jquery library -->
         <script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
-        <!-- Latest compiled and minified javascript -->
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-        <!-- External CSS -->
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
-    <body>
+    <body class='loginSignup'>
         <div>
             <?php
                 require 'header.php';
@@ -29,7 +25,6 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="panel panel-primary">
-                            <div class="panel-heading"></div>
                             <div class="panel-body">
                                 <p>You have been logged out. <a href="login.php">Login again.</a></p>
                             </div>
@@ -37,14 +32,9 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer">
-               <div class="container">
-               <center>
-                   <p>Copyright &copy MarketMart. All Rights Reserved. | Contact Us: +91 90000 00000</p>
-                   <p>This website is developed by Web Dev</p>
-               </center>
-               </div>
-           </footer>
+            <?php
+                require 'footer.php';
+            ?>
         </div>
     </body>
 </html>
